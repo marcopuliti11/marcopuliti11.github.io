@@ -1,4 +1,70 @@
-    <section id="timeline">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marco Puliti - Robotics Hardware Engineer</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{--primary:#00ff88;--bg:#0a0a0a;--card:#1a1a1a;--accent:#ff6b35;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Courier New',monospace;background:var(--bg);color:#fff;overflow-x:hidden;}
+.hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(45deg,var(--bg),#000);overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('images/gear-bg.jpg') center/cover;opacity:0.3;animation:rotate 20s linear infinite;}
+@keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+h1{font-size:4rem;text-shadow:0 0 20px var(--primary);animation:glow 2s ease-in-out infinite alternate;}
+@keyframes glow{from{text-shadow:0 0 20px var(--primary);}to{text-shadow:0 0 30px var(--primary),0 0 40px var(--primary);}}
+nav{position:fixed;top:20px;right:20px;background:var(--card);padding:1rem;border-radius:50px;backdrop-filter:blur(10px);}
+nav a{color:#fff;text-decoration:none;margin:0 1rem;font-weight:bold;transition:0.3s;}
+nav a:hover{color:var(--primary);}
+section{padding:100px 20px;min-height:100vh;}
+.timeline{position:relative;max-width:1000px;margin:0 auto;}
+.timeline::before{content:'';position:absolute;top:0;left:50%;width:4px;background:var(--primary);height:100%;transform:translateX(-50%);}
+.event{position:relative;margin:50px 0;width:50%;animation:slideIn 1s ease-out;}
+.event:nth-child(odd){left:0;} .event:nth-child(even){left:50%;}
+.event-content{background:var(--card);padding:2rem;border-radius:20px;box-shadow:0 10px 30px rgba(0,255,136,0.2);transition:0.5s transform;}
+.event:hover .event-content{transform:scale(1.05) rotate(5deg);box-shadow:0 20px 50px rgba(0,255,136,0.4);}
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;}
+.project-card{background:var(--card);padding:2rem;border-radius:15px;text-align:center;transition:0.3s;cursor:pointer;overflow:hidden;}
+.project-card:hover{transform:translateY(-10px);background:linear-gradient(45deg,var(--primary),var(--accent));}
+.project-card i{font-size:4rem;color:var(--primary);}
+footer{text-align:center;padding:2rem;background:var(--card);}
+@media (max-width:768px){.timeline::before{left:20px;}.event{width:100%;left:60px !important;}}
+</style>
+</head>
+<body>
+<div class="hero">
+<div>
+<h1>Marco Puliti</h1>
+<p>
+Robotics Hardware Engineer
+<i class="fas fa-robot robot-move" style="color:var(--primary);"></i>
+</p>
+
+<style>
+.robot-move {
+animation: robotAnim 1.5s infinite;
+}
+
+@keyframes robotAnim {
+0% { transform: translateX(0) rotate(0deg); }
+25% { transform: translateX(3px) rotate(5deg); }
+50% { transform: translateX(0) rotate(0deg); }
+75% { transform: translateX(-3px) rotate(-5deg); }
+100% { transform: translateX(0) rotate(0deg); }
+}
+</style>
+</div>
+</div>
+
+<nav>
+<a href="#timeline"><i class="fas fa-road"></i> About</a>
+<a href="#projects"><i class="fas fa-robot"></i> Projects </a>
+<a href="#skills"><i class="fas fa-tools"></i> Publications </a>
+<a href="#contact"><i class="fas fa-plug"></i> Contacts </a>
+</nav>
+
+<section id="timeline">
         <div style="text-align:center;margin-bottom:4rem;">
             <img src="images/profile.jpg" alt="Profile" style="width:200px;height:200px;border-radius:50%;box-shadow:0 0 40px var(--primary);">
             <h2 style="font-size:3rem;margin:20px 0;color:var(--primary);">Robotics Hardware Engineer</h2>
@@ -64,4 +130,53 @@
                 </div>
             </div>
         </div>
-    </section>
+</section>
+
+<section id="projects" style="background:radial-gradient(circle,var(--bg),#000);">
+<h2 style="text-align:center;font-size:3rem;margin-bottom:4rem;">Prototype Gallery</h2>
+<div class="project-grid">
+<div class="project-card">
+<i class="fas fa-cog"></i>
+<h3>Worm Gear Drivetrain</h3>
+<p>SolidWorks design, tolerance stackup. Maxon integration.</p>
+</div>
+<div class="project-card">
+<i class="fas fa-plug"></i>
+<h3>Power Electronics Inverter</h3>
+<p>FOC control, thermal modeling. Python/Jupyter sims.</p>
+</div>
+<div class="project-card">
+<i class="fas fa-running"></i>
+<h3>Marathon Mech</h3>
+<p>Training periodization meets robotics endurance.</p>
+</div>
+<!-- Embed GitHub: <iframe src="https://ghbtns.com/github-btn.html?user=youruser&repo=project&type=star" frameborder="0"></iframe> -->
+</div>
+</section>
+
+<section id="skills">
+<h2 style="text-align:center;font-size:3rem;margin-bottom:4rem;">Tech Stack</h2>
+<div class="project-grid">
+<div class="project-card"><i class="fab fa-python"></i><h3>Python/ROS2</h3></div>
+<div class="project-card"><i class="fas fa-drafting-compass"></i><h3>SolidWorks</h3></div>
+<div class="project-card"><i class="fas fa-bolt"></i><h3>Power Electronics</h3></div>
+<!-- Add more: C++, GD&T, Maxon, KHK gears -->
+</div>
+</section>
+
+<section id="contact" style="background:var(--card);">
+<h2 style="text-align:center;">Engage Protocol</h2>
+<p style="text-align:center;">Milan, IT | <a href="mailto:you@domain.com" style="color:var(--primary);">you@domain.com</a> | <a href="https://linkedin.com/in/yourprofile" style="color:var(--primary);">LinkedIn</a> | <a href="https://github.com/yourusername" style="color:var(--primary);">GitHub</a></p>
+</section>
+
+<footer>
+<p>Powered by GitHub Pages & Your Ingenuity <i class="fas fa-robot"></i></p>
+</footer>
+
+<script>
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e){e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'});});
+});
+// Spin animation
+function spin(){document.querySelectorAll('.fa-cogs').forEach(el => el.style.animation = 'spin 2s linear infinite');} spin(

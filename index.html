@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marco Puliti - Robotics Hardware Engineer</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta property="og:title" content="Marco Puliti - Robotics Hardware Engineer">
+<meta property="og:description" content="Mechatronics engineer specializing in robotics prosthetics and exoskeletons.">
+<meta property="og:image" content="MarcoPuliti.jpg">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -24,9 +28,22 @@ body{
     color:var(--text-primary);
     overflow-x:hidden;
     line-height:1.7;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>'), auto;
 }
 
-/* Fixed name in top left */
+/* Scroll progress bar */
+.progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    width: 0%;
+    z-index: 1001;
+    transition: width 0.3s ease;
+}
+
+/* Fixed name in top left - Enhanced */
 .name-header {
     position: fixed;
     top: 30px;
@@ -41,7 +58,27 @@ body{
     box-shadow: 0 10px 40px var(--shadow);
     backdrop-filter: blur(20px);
     border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
 }
+.name-header::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    transition: width 0.3s ease;
+    border-radius: 1px;
+}
+.name-header:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 50px var(--shadow);
+    border-color: var(--primary);
+}
+.name-header:hover::after { width: 70%; }
 
 .hero{
     position:relative;
@@ -51,7 +88,13 @@ body{
     justify-content:center;
     text-align:center;
     background:linear-gradient(135deg, var(--bg) 0%, #1e293b 100%);
-    padding-top: 120px; /* Space for fixed name */
+    padding-top: 120px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1.2s ease-out 0.3s forwards;
+}
+@keyframes fadeInUp{
+    to{opacity:1;transform:translateY(0);}
 }
 h1{font-size:4rem;font-weight:700;margin-bottom:1rem;letter-spacing:-0.02em;}
 .hero p{font-size:1.6rem;font-weight:400;color:var(--text-secondary);margin-bottom:2rem;}
@@ -90,7 +133,17 @@ nav a::after{
 }
 nav a:hover::after{width:100%;}
 
-section{padding:120px 40px;min-height:100vh;}
+section{
+    padding:120px 40px;
+    min-height:100vh;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+}
+section.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
 section h2, section h3{font-weight:600;letter-spacing:-0.01em;}
 .container{max-width:1200px;margin:0 auto;}
 .timeline{position:relative;}
@@ -114,9 +167,6 @@ section h2, section h3{font-weight:600;letter-spacing:-0.01em;}
 }
 .event:nth-child(odd){left:0;padding-right:50px;}
 .event:nth-child(even){left:50%;padding-left:50px;}
-@keyframes fadeInUp{
-    to{opacity:1;transform:translateY(0);}
-}
 .event-content{
     background:var(--card);
     padding:2.5rem;
@@ -142,6 +192,21 @@ section h2, section h3{font-weight:600;letter-spacing:-0.01em;}
     box-shadow:0 30px 80px var(--shadow);
     border-color:var(--primary);
 }
+
+/* Enhanced timeline header */
+.event-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.event-header i { font-size: 2rem; margin-right: 1rem; }
+.event-date {
+    color: var(--secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
 .project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:2.5rem;}
 .project-card{
     background:var(--card);
@@ -178,40 +243,41 @@ section h2, section h3{font-weight:600;letter-spacing:-0.01em;}
     font-size:1.4rem;
     font-weight:600;
 }
-.skills-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:2rem;
-    margin-top:2rem;
+.project-tags {
+    margin: 1.5rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
 }
-.skill-item{
-    background:var(--card);
-    padding:2.5rem 2rem;
-    border-radius:16px;
-    text-align:center;
-    border:1px solid var(--border);
-    transition:all 0.3s ease;
-    cursor:default;
+.project-tag {
+    background: var(--primary);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
 }
-.skill-item:hover{
-    transform:translateY(-6px);
-    box-shadow:0 20px 40px var(--shadow);
-    border-color:var(--primary);
+.project-link {
+    margin-top: 1.5rem;
+    display: inline-block;
+    color: var(--secondary);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
+.project-link:hover { color: var(--primary); transform: translateX(4px); }
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-top:2rem;}
+.skill-item{background:var(--card);padding:2.5rem 2rem;border-radius:16px;text-align:center;border:1px solid var(--border);transition:all 0.3s ease;cursor:default;}
+.skill-item:hover{transform:translateY(-6px);box-shadow:0 20px 40px var(--shadow);border-color:var(--primary);}
 .skill-item i{font-size:3rem;margin-bottom:1rem;display:block;color:var(--primary);}
 .skill-item strong{display:block;font-size:1.1rem;margin-top:0.5rem;font-weight:600;}
-.languages-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:2.5rem;
-    max-width:700px;
-    margin:3rem auto 0;
-}
+.languages-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:2.5rem;max-width:700px;margin:3rem auto 0;}
 .lang-item{text-align:center;}
 .lang-name{font-size:1.7rem;font-weight:600;margin-bottom:0.75rem;}
 .lang-level{color:var(--text-secondary);font-weight:500;font-size:1rem;}
 
-/* Merged hero/about section styles */
+/* About section styles */
 .about-hero {
     display: flex;
     align-items: flex-start;
@@ -220,101 +286,80 @@ section h2, section h3{font-weight:600;letter-spacing:-0.01em;}
     margin: 0 auto;
     padding: 2rem 0;
 }
-
 .profile-img{
-    width:300px;
-    height:380px;
-    border-radius:20px;
-    box-shadow:0 30px 80px var(--shadow);
-    object-fit:cover;
-    flex-shrink: 0;
-    border:3px solid var(--border);
+    width:300px;height:380px;border-radius:20px;box-shadow:0 30px 80px var(--shadow);object-fit:cover;flex-shrink:0;border:3px solid var(--border);
 }
-
-.about-content {
-    flex: 1;
-    text-align: left;
-}
-
-.about-content h2 {
-    font-size:3.2rem;
-    margin-bottom:1rem;
-    color:var(--primary);
-}
-
-.profile-divider{
-    height:2px;
-    background:linear-gradient(90deg,transparent,rgba(74,144,226,0.4),transparent);
-    margin:3rem 0;
-    border:0;
-}
-
-.about-content p{
-    font-size:1.15rem;
-    line-height:1.85;
-    margin-bottom:2rem;
-}
+.about-content {flex:1;text-align:left;}
+.about-content h2{font-size:3.2rem;margin-bottom:1rem;color:var(--primary);}
+.profile-divider{height:2px;background:linear-gradient(90deg,transparent,rgba(74,144,226,0.4),transparent);margin:3rem 0;border:0;}
+.about-content p{font-size:1.15rem;line-height:1.85;margin-bottom:2rem;}
 
 @media (max-width:1024px){
     .event{width:100% !important;left:0 !important;padding:0 20px !important;}
     .timeline::before{left:40px;}
-    .about-hero {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .about-content {
-        text-align: center;
-    }
+    .about-hero{flex-direction:column;align-items:center;text-align:center;}
+    .about-content{text-align:center;}
 }
-
 @media (max-width:768px){
     section{padding:80px 20px;}
     h1{font-size:2.8rem;}
-    .name-header {
-        top: 20px;
-        left: 20px;
-        font-size: 1.4rem;
-        padding: 0.5rem 1rem;
-    }
+    .name-header{top:20px;left:20px;font-size:1.4rem;padding:0.5rem 1rem;}
     nav{right:20px;top:20px;padding:0.75rem 1.25rem;}
     nav a{margin:0 0.75rem;font-size:0.9rem;}
     .project-grid{gap:2rem;}
-    .about-hero {gap: 2rem;}
-    .profile-img {
-        width: 250px;
-        height: 320px;
-    }
+    .about-hero{gap:2rem;}
+    .profile-img{width:250px;height:320px;}
 }
 
-.contact-section{
-    background:linear-gradient(135deg, var(--card) 0%, #1e293b 100%);
-    text-align:center;
-}
-.contact-links{
-    font-size:1.2rem;
-    margin-top:2rem;
-}
-.contact-links a{
-    color:var(--secondary);
-    font-weight:500;
-    margin:0 1.5rem;
-    transition:all 0.3s ease;
-}
+.contact-section{background:linear-gradient(135deg, var(--card) 0%, #1e293b 100%);text-align:center;}
+.contact-links{font-size:1.2rem;margin-top:2rem;}
+.contact-links a{color:var(--secondary);font-weight:500;margin:0 1.5rem;transition:all 0.3s ease;}
 .contact-links a:hover{color:var(--primary);transform:translateY(-1px);}
+
 footer{
-    text-align:center;
-    padding:3rem 2rem;
-    background:var(--card);
-    border-top:1px solid var(--border);
-    color:var(--text-secondary);
-    font-size:0.95rem;
+    background: linear-gradient(135deg, var(--card), #1e293b);
+    text-align: center;
+    padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.2rem;
+}
+.footer-social a {
+    color: var(--secondary);
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.footer-social a:hover {
+    color: var(--primary);
+    transform: translateY(-2px);
 }
 </style>
 </head>
 <body>
+<div class="progress-bar" id="progress"></div>
+
 <!-- Fixed name in top left -->
-<div class="name-header">Marco Puliti - Robotics Hardware engineer </div>
+<div class="name-header">Marco Puliti</div>
+
+<div class="hero">
+    <div>
+        <h1>Robotics Hardware Engineer</h1>
+    </div>
+</div>
 
 <nav>
 <a href="#about"><i class="fas fa-user" style="margin-right:0.5rem;"></i>About</a>
@@ -330,6 +375,9 @@ footer{
         <div class="about-content">
             <h2>Passionate about designing things to help people.</h2>
             <p>Hi, my name is Marco. Thank you for visiting my website.</p>
+            
+            <hr class="profile-divider">
+            
             <p>I'm a <strong>mechatronics engineer</strong> with a PhD in mechanical engineering, specializing in <strong>robotics</strong>. 
             I enjoy designing mechatronic systems that make a real impact on people's lives—whether prosthetics, exoskeletons, or robots in general.</p>
             
@@ -351,13 +399,25 @@ footer{
             <h3 style="font-size:2.2rem;margin:0 0 3rem 0;color:var(--primary);">Work Experience</h3>
             <div class="event">
                 <div class="event-content">
-                    <h3><i class="fas fa-rocket" style="margin-right:0.75rem;color:var(--primary);"></i>Leonardo Spa - Innovation Hub (Robotics laboratory)</h3>
+                    <div class="event-header">
+                        <i class="fas fa-rocket"></i>
+                        <div>
+                            <h3>Leonardo Spa - Innovation Hub (Robotics laboratory)</h3>
+                            <span class="event-date">2024 - Present</span>
+                        </div>
+                    </div>
                     <p>R&D Robotics Hardware engineer - Technical coordinator for mechatronics.</p>
                 </div>
             </div>
             <div class="event">
                 <div class="event-content">
-                    <h3><i class="fas fa-industry" style="margin-right:0.75rem;color:var(--primary);"></i>Istituto Italiano di Tecnologia (IIT) - Rehab Technologies Lab</h3>
+                    <div class="event-header">
+                        <i class="fas fa-industry"></i>
+                        <div>
+                            <h3>Istituto Italiano di Tecnologia (IIT) - Rehab Technologies Lab</h3>
+                            <span class="event-date">2022 - 2024</span>
+                        </div>
+                    </div>
                     <p>Postdoctoral researcher in robotic prostheses and exoskeletons.</p>
                 </div>
             </div>
@@ -365,13 +425,25 @@ footer{
             <h3 style="font-size:2.2rem;margin:60px 0 3rem 0;color:var(--primary);">Education</h3>
             <div class="event">
                 <div class="event-content">
-                    <h3><i class="fas fa-graduation-cap" style="margin-right:0.75rem;color:var(--primary);"></i>Mechanical engineering doctorate (robotics)</h3>
+                    <div class="event-header">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <h3>Mechanical engineering doctorate (robotics)</h3>
+                            <span class="event-date">2018 - 2022</span>
+                        </div>
+                    </div>
                     <p>Istituto Italiano di Tecnologia (IIT) - Rehab Technologies Lab | Politecnico di Torino</p>
                 </div>
             </div>
             <div class="event">
                 <div class="event-content">
-                    <h3><i class="fas fa-book" style="margin-right:0.75rem;color:var(--primary);"></i>Master's degree in Mechatronics engineering</h3>
+                    <div class="event-header">
+                        <i class="fas fa-book"></i>
+                        <div>
+                            <h3>Master's degree in Mechatronics engineering</h3>
+                            <span class="event-date">2015 - 2018</span>
+                        </div>
+                    </div>
                     <p>Politecnico di Torino - University of Massachusetts Lowell</p>
                 </div>
             </div>
@@ -418,28 +490,47 @@ footer{
 <section id="projects" class="container" style="padding:140px 40px;">
 <h2 style="text-align:center;font-size:3.5rem;margin-bottom:5rem;">Projects</h2>
 <div class="project-grid">
-<div class="project-card">
-<i class="fas fa-cog"></i>
-<h3>Leg prosthesis</h3>
-<p>Add info</p>
-</div>
-<div class="project-card">
-<i class="fas fa-plug"></i>
-<h3>master thesis</h3>
-<p>add info</p>
-</div>
-<div class="project-card">
-<i class="fas fa-running"></i>
-<h3>robot leg</h3>
-<p>add info</p>
-</div>
+    <div class="project-card">
+        <i class="fas fa-cog"></i>
+        <h3>Leg Prosthesis</h3>
+        <p>Active prosthetic leg with FOC motor control, EMG sensing, and real-time adaptation algorithms.</p>
+        <div class="project-tags">
+            <span class="project-tag">ROS2</span>
+            <span class="project-tag">SolidWorks</span>
+            <span class="project-tag">KiCAD</span>
+            <span class="project-tag">Python</span>
+        </div>
+        <a href="#" class="project-link">View Project →</a>
+    </div>
+    <div class="project-card">
+        <i class="fas fa-plug"></i>
+        <h3>Master Thesis - Exoskeleton Control</h3>
+        <p>Model predictive control framework for lower-limb exoskeletons with energy optimization.</p>
+        <div class="project-tags">
+            <span class="project-tag">MATLAB</span>
+            <span class="project-tag">Simulink</span>
+            <span class="project-tag">C++</span>
+        </div>
+        <a href="#" class="project-link">View Project →</a>
+    </div>
+    <div class="project-card">
+        <i class="fas fa-running"></i>
+        <h3>Robot Leg Dynamics</h3>
+        <p>High-speed legged robot with impedance control and terrain adaptation capabilities.</p>
+        <div class="project-tags">
+            <span class="project-tag">ROS2</span>
+            <span class="project-tag">SolidWorks</span>
+            <span class="project-tag">FOC</span>
+        </div>
+        <a href="#" class="project-link">View Project →</a>
+    </div>
 </div>
 </section>
 
 <section id="skills" class="container" style="padding:140px 40px;text-align:center;">
     <h2 style="font-size:3.5rem;margin-bottom:5rem;"><a href="#publications-list" style="color:var(--text-primary);text-decoration:none;transition:all 0.3s ease;">Publications</a></h2>
     
-    <!-- Publications List - Add your publications here -->
+    <!-- Publications List -->
     <div id="publications-list" style="max-width:800px;margin:0 auto;">
         <div style="background:var(--card);padding:2.5rem;border-radius:20px;margin-bottom:2rem;border:1px solid var(--border);box-shadow:0 20px 60px var(--shadow);">
             <h3 style="font-size:1.8rem;margin-bottom:1rem;color:var(--primary);text-align:left;">[Publication Title 1]</h3>
@@ -448,7 +539,6 @@ footer{
                 <a href="#" style="color:var(--secondary);font-size:1rem;">[DOI/Link]</a>
             </p>
         </div>
-        
         <div style="background:var(--card);padding:2.5rem;border-radius:20px;margin-bottom:2rem;border:1px solid var(--border);box-shadow:0 20px 60px var(--shadow);">
             <h3 style="font-size:1.8rem;margin-bottom:1rem;color:var(--primary);text-align:left;">[Publication Title 2]</h3>
             <p style="color:var(--text-secondary);text-align:left;font-size:1.1rem;margin-bottom:0.5rem;">
@@ -456,7 +546,6 @@ footer{
                 <a href="#" style="color:var(--secondary);font-size:1rem;">[DOI/Link]</a>
             </p>
         </div>
-        
         <div style="background:var(--card);padding:2.5rem;border-radius:20px;border:1px solid var(--border);box-shadow:0 20px 60px var(--shadow);">
             <h3 style="font-size:1.8rem;margin-bottom:1rem;color:var(--primary);text-align:left;">[Publication Title 3]</h3>
             <p style="color:var(--text-secondary);text-align:left;font-size:1.1rem;margin-bottom:0.5rem;">
@@ -478,9 +567,13 @@ footer{
 </section>
 
 <footer>
-<div class="container">
-<p>Powered by GitHub Pages & my friend Perplexity AI <i class="fas fa-robot" style="color:var(--secondary);font-size:1.1em;"></i></p>
-</div>
+    <div class="footer-content">
+        <p>© 2026 Marco Puliti. Built with ❤️ & Perplexity AI</p>
+        <div class="footer-social">
+            <a href="https://github.com/marcopuliti11"><i class="fab fa-github"></i> 42</a>
+            <a href="https://linkedin.com/in/marco-puliti"><i class="fab fa-linkedin"></i> 500+</a>
+        </div>
+    </div>
 </footer>
 
 <script>
@@ -497,6 +590,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const events = document.querySelectorAll('.event');
     events.forEach((event, index) => {
         event.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Section reveal animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    });
+    document.querySelectorAll('section').forEach(section => observer.observe(section));
+    
+    // Scroll progress bar
+    window.addEventListener('scroll', () => {
+        const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+        document.getElementById('progress').style.width = scrolled + '%';
     });
 });
 </script>

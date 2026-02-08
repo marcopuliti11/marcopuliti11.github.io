@@ -12,12 +12,25 @@
         .hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(45deg,var(--bg),#000);overflow:hidden;}
         .hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:url('images/gear-bg.jpg') center/cover;opacity:0.3;animation:rotate 20s linear infinite;}
         @keyframes rotate{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
-        h1{font-size:4rem;text-shadow:0 0 20px var(--primary);animation:glow 2s ease-in-out infinite alternate;}
+        .profile-img{position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:200px;height:200px;border-radius:50%;object-fit:cover;box-shadow:0 0 40px var(--primary);z-index:2;}
+        h1{font-size:4rem;text-shadow:0 0 20px var(--primary);animation:glow 2s ease-in-out infinite alternate;margin-top:250px;}
         @keyframes glow{from{text-shadow:0 0 20px var(--primary);}to{text-shadow:0 0 30px var(--primary),0 0 40px var(--primary);}}
+        .hero-subtitle{font-size:1.5rem;margin:10px 0;color:var(--primary);}
         nav{position:fixed;top:20px;right:20px;background:var(--card);padding:1rem;border-radius:50px;backdrop-filter:blur(10px);}
         nav a{color:#fff;text-decoration:none;margin:0 1rem;font-weight:bold;transition:0.3s;}
         nav a:hover{color:var(--primary);}
         section{padding:100px 20px;min-height:100vh;}
+        .cv-section{position:relative;max-width:1000px;margin:0 auto;}
+        .cv-section h2{font-size:3rem;text-align:center;margin-bottom:4rem;border-bottom:3px solid var(--primary);padding-bottom:20px;}
+        .cv-block{background:var(--card);padding:2rem;border-radius:20px;box-shadow:0 10px 30px rgba(0,255,136,0.2);margin-bottom:3rem;transition:0.5s;}
+        .cv-block h3{margin:0 0 10px;color:var(--primary);font-size:1.5rem;}
+        .cv-block .date{color:#aaa;font-style:italic;margin-bottom:15px;}
+        .cv-block ul{margin:10px 0 0 20px;}
+        .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
+        .skill-tag{background:rgba(0,255,136,0.1);padding:10px;border-radius:15px;text-align:center;transition:0.3s;}
+        .skill-tag:hover{background:var(--primary);color:#000;}
+        .lang-bar{background:var(--card);height:10px;border-radius:5px;overflow:hidden;margin:5px 0;}
+        .lang-fill{background:var(--primary);height:100%;transition:width 1s;}
         .timeline{position:relative;max-width:1000px;margin:0 auto;}
         .timeline::before{content:'';position:absolute;top:0;left:50%;width:4px;background:var(--primary);height:100%;transform:translateX(-50%);}
         .event{position:relative;margin:50px 0;width:50%;animation:slideIn 1s ease-out;}
@@ -29,41 +42,96 @@
         .project-card:hover{transform:translateY(-10px);background:linear-gradient(45deg,var(--primary),var(--accent));}
         .project-card i{font-size:4rem;color:var(--primary);}
         footer{text-align:center;padding:2rem;background:var(--card);}
-        @media (max-width:768px){.timeline::before{left:20px;}.event{width:100%;left:60px !important;}}
+        .robot-move{animation:robotAnim 1.5s infinite;}
+        @keyframes robotAnim{0%{transform:translateX(0) rotate(0deg);}25%{transform:translateX(3px) rotate(5deg);}50%{transform:translateX(0) rotate(0deg);}75%{transform:translateX(-3px) rotate(-5deg);}100%{transform:translateX(0) rotate(0deg);}}
+        @keyframes slideIn{from{opacity:0;transform:translateX(-50px);}to{opacity:1;transform:translateX(0);}}
+        @media (max-width:768px){.timeline::before{left:20px;}.event{width:100%;left:60px !important;}.profile-img{width:150px;height:150px;top:15%;}}
     </style>
 </head>
 <body>
     <div class="hero">
-        <div>
+        <img src="images/profile.jpg" alt="Marco Puliti" class="profile-img">
+        <div style="z-index:3;">
             <h1>Marco Puliti</h1>
-            <p>
-            Robotics Hardware Engineer
-            <i class="fas fa-robot robot-move" style="color:var(--primary);"></i>
+            <p class="hero-subtitle">
+                Robotics Hardware Engineer
+                <i class="fas fa-robot robot-move" style="font-size:2rem;"></i>
             </p>
-            
-            <style>
-            .robot-move {
-              animation: robotAnim 1.5s infinite;
-            }
-            
-            @keyframes robotAnim {
-              0%   { transform: translateX(0) rotate(0deg); }
-              25%  { transform: translateX(3px) rotate(5deg); }
-              50%  { transform: translateX(0) rotate(0deg); }
-              75%  { transform: translateX(-3px) rotate(-5deg); }
-              100% { transform: translateX(0) rotate(0deg); }
-            }
-            </style>
+            <p style="font-size:1.2rem;color:#aaa;">Turin, Italy | Leonardo | PhD Robotics</p>
         </div>
     </div>
 
     <nav>
-        <a href="#timeline"><i class="fas fa-road"></i> About</a>
-        <a href="#projects"><i class="fas fa-robot"></i> Projects </a>
-        <a href="#skills"><i class="fas fa-tools"></i> Publications </a>
-        <a href="#contact"><i class="fas fa-plug"></i> Contacts </a>
+        <a href="#cv"><i class="fas fa-user"></i> Profile</a>
+        <a href="#timeline"><i class="fas fa-road"></i> Mission Log</a>
+        <a href="#projects"><i class="fas fa-robot"></i> Projects</a>
+        <a href="#skills"><i class="fas fa-tools"></i> Tech Stack</a>
+        <a href="#contact"><i class="fas fa-plug"></i> Contact</a>
     </nav>
 
+    <!-- NEW CV SECTION replacing Mission Log header -->
+    <section id="cv" class="cv-section">
+        <h2><i class="fas fa-id-card"></i> Professional Profile</h2>
+        
+        <!-- About Text -->
+        <div class="cv-block">
+            <p style="font-size:1.1rem;line-height:1.8;">Mechatronic engineer with PhD in robotics. Expert in actuator optimization, FOC motor control, and mechanical transmissions. Currently at Leonardo (defense sector), advancing in European private law. Marathon runner targeting sub-5min/km pace.</p>
+        </div>
+
+        <!-- Work Experience -->
+        <h3 style="color:var(--primary);margin:40px 0 20px 0;">Work Experience</h3>
+        <div class="cv-block">
+            <h3>Actuator Design Engineer</h3>
+            <div class="date">Leonardo | 2025 – Present | Turin, Italy</div>
+            <ul style="margin:15px 0 0 20px;">
+                <li>Planetary/cycloidal gearbox optimization for high-torque applications</li>
+                <li>FOC implementation with field weakening on Maxon motors</li>
+                <li>GD&T tolerancing and FEA structural analysis</li>
+            </ul>
+        </div>
+        <div class="cv-block">
+            <h3>Transmission Systems Engineer</h3>
+            <div class="date">Baker Hughes | Previous Role</div>
+            <ul style="margin:15px 0 0 20px;">
+                <li>Ball/roller screw actuators and multibody simulations</li>
+                <li>Motor-transmission integration projects</li>
+            </ul>
+        </div>
+
+        <!-- Education -->
+        <h3 style="color:var(--primary);margin:40px 0 20px 0;">Education</h3>
+        <div class="cv-block">
+            <h3>PhD in Robotics (Mechatronics)</h3>
+            <div class="date">Thesis: Precision Drive Systems</div>
+        </div>
+        <div class="cv-block">
+            <h3>Advanced European Private Law</h3>
+            <div class="date">Ongoing | Turin</div>
+        </div>
+        <div class="cv-block">
+            <h3>MSc/BSc Engineering (Mechatronics Focus)</h3>
+        </div>
+
+        <!-- Skills -->
+        <h3 style="color:var(--primary);margin:40px 0 20px 0;">Technical Skills</h3>
+        <div class="skills-grid">
+            <div class="skill-tag"><i class="fab fa-python"></i> Python/C++</div>
+            <div class="skill-tag"><i class="fas fa-drafting-compass"></i> SolidWorks</div>
+            <div class="skill-tag"><i class="fas fa-robot"></i> ROS 2</div>
+            <div class="skill-tag"><i class="fas fa-microchip"></i> KiCAD/PCB</div>
+            <div class="skill-tag"><i class="fas fa-bolt"></i> FOC Control</div>
+            <div class="skill-tag"><i class="fas fa-cogs"></i> Gearbox Design</div>
+        </div>
+
+        <!-- Languages -->
+        <h3 style="color:var(--primary);margin:40px 0 20px 0;">Languages</h3>
+        <div class="cv-block">
+            <div>Italian <span style="float:right;">Native</span> <div class="lang-bar"><div class="lang-fill" style="width:100%;"></div></div></div>
+            <div>English <span style="float:right;">Fluent</span> <div class="lang-bar"><div class="lang-fill" style="width:95%;"></div></div></div>
+        </div>
+    </section>
+
+    <!-- Keep existing sections -->
     <section id="timeline">
         <h2 style="text-align:center;font-size:3rem;margin-bottom:4rem;">Mission Log</h2>
         <div class="timeline">
@@ -76,58 +144,4 @@
             <div class="event">
                 <div class="event-content">
                     <h3><i class="fas fa-graduation-cap"></i> PhD Robotics</h3>
-                    <p>Advanced kinematics, ROS2 sims, gripper prototypes. Thesis: Precision Drives</p>
-                </div>
-            </div>
-            <!-- Add 2-3 more: Leonardo, MSc, BSc; marathon milestones as fun entries -->
-        </div>
-    </section>
-
-    <section id="projects" style="background:radial-gradient(circle,var(--bg),#000);">
-        <h2 style="text-align:center;font-size:3rem;margin-bottom:4rem;">Prototype Gallery</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <i class="fas fa-cog"></i>
-                <h3>Worm Gear Drivetrain</h3>
-                <p>SolidWorks design, tolerance stackup. Maxon integration.</p>
-            </div>
-            <div class="project-card">
-                <i class="fas fa-plug"></i>
-                <h3>Power Electronics Inverter</h3>
-                <p>FOC control, thermal modeling. Python/Jupyter sims.</p>
-            </div>
-            <div class="project-card">
-                <i class="fas fa-running"></i>
-                <h3>Marathon Mech</h3>
-                <p>Training periodization meets robotics endurance.</p>
-            </div>
-            <!-- Embed GitHub: <iframe src="https://ghbtns.com/github-btn.html?user=youruser&repo=project&type=star" frameborder="0"></iframe> -->
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2 style="text-align:center;font-size:3rem;margin-bottom:4rem;">Tech Stack</h2>
-        <div class="project-grid">
-            <div class="project-card"><i class="fab fa-python"></i><h3>Python/ROS2</h3></div>
-            <div class="project-card"><i class="fas fa-drafting-compass"></i><h3>SolidWorks</h3></div>
-            <div class="project-card"><i class="fas fa-bolt"></i><h3>Power Electronics</h3></div>
-            <!-- Add more: C++, GD&T, Maxon, KHK gears -->
-        </div>
-    </section>
-
-    <section id="contact" style="background:var(--card);">
-        <h2 style="text-align:center;">Engage Protocol</h2>
-        <p style="text-align:center;">Milan, IT | <a href="mailto:you@domain.com" style="color:var(--primary);">you@domain.com</a> | <a href="https://linkedin.com/in/yourprofile" style="color:var(--primary);">LinkedIn</a> | <a href="https://github.com/yourusername" style="color:var(--primary);">GitHub</a></p>
-    </section>
-
-    <footer>
-        <p>Powered by GitHub Pages & Your Ingenuity <i class="fas fa-robot"></i></p>
-    </footer>
-
-    <script>
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e){e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({behavior:'smooth'});});
-        });
-        // Spin animation
-        function spin(){document.querySelectorAll('.fa-cogs').forEach(el => el.style.animation = 'spin 2s linear infinite');} spin(
+                    <p>Advanced kinematics, ROS2 sims, gripper prototypes. Thesis:

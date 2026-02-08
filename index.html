@@ -37,7 +37,23 @@
         <div>
             <h1>Marco Puliti</h1>
             <p>
-            Robotics Hardware Engineer <i class="fas fa-cogs fa-spin" style="color:var(--primary);"></i> </p>
+            Robotics Hardware Engineer
+            <i class="fas fa-robot robot-move" style="color:var(--primary);"></i>
+            </p>
+            
+            <style>
+            .robot-move {
+              animation: robotAnim 1.5s infinite;
+            }
+            
+            @keyframes robotAnim {
+              0%   { transform: translateX(0) rotate(0deg); }
+              25%  { transform: translateX(3px) rotate(5deg); }
+              50%  { transform: translateX(0) rotate(0deg); }
+              75%  { transform: translateX(-3px) rotate(-5deg); }
+              100% { transform: translateX(0) rotate(0deg); }
+            }
+            </style>
         </div>
     </div>
 

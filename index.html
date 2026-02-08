@@ -8,77 +8,421 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-    --primary:#1e3a8a;
-    --primary-light:#3b82f6;
-    --bg:#0a0e17;
-    --bg-alt:#111827;
-    --card:#0f172a;
-    --card-hover:#1e293b;
+    --primary:#2c5aa0;
+    --secondary:#4a90e2;
+    --bg:#0f1419;
+    --card:#1a222e;
     --text-primary:#f8fafc;
     --text-secondary:#cbd5e1;
     --border:#334155;
-    --shadow-sm:rgba(0,0,0,0.3);
-    --shadow-md:rgba(0,0,0,0.5);
-    --shadow-lg:rgba(0,0,0,0.6);
+    --shadow:rgba(0,0,0,0.4);
 }
-*, *::before, *::after{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
     font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     background:var(--bg);
     color:var(--text-primary);
     overflow-x:hidden;
-    line-height:1.75;
-    scroll-behavior:smooth;
+    line-height:1.7;
 }
-html{scroll-behavior:smooth;}
-.container{max-width:1280px;margin:0 auto;padding:0 24px;}
-.name-badge{
-    position:fixed;
-    top:32px;
-    left:32px;
-    z-index:1001;
-    opacity:0;
-    transform:translateY(-20px);
-    animation:nameIn 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s forwards;
+.hero{
+    position:relative;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    background:linear-gradient(135deg, var(--bg) 0%, #1e293b 100%);
 }
-@keyframes nameIn{to{opacity:1;transform:translateY(0);}}
-.name-badge h1{
-    font-size:clamp(2rem,5vw,3.2rem);
-    font-weight:800;
-    background:linear-gradient(135deg, var(--text-primary), var(--primary-light));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    background-clip:text;
-    margin:0;
-    letter-spacing:-0.02em;
-}
-.name-subtitle{
-    font-size:clamp(0.9rem,2vw,1.1rem);
-    color:var(--text-secondary);
-    font-weight:400;
-    margin-top:0.25rem;
-    opacity:0.9;
-}
+h1{font-size:4rem;font-weight:700;margin-bottom:1rem;letter-spacing:-0.02em;}
+.hero p{font-size:1.6rem;font-weight:400;color:var(--text-secondary);margin-bottom:2rem;}
 nav{
     position:fixed;
-    top:32px;
-    right:32px;
-    background:linear-gradient(135deg, var(--card), var(--card-hover));
-    backdrop-filter:blur(24px);
-    padding:20px 32px;
-    border-radius:24px;
-    box-shadow:0 25px 80px var(--shadow-lg);
-    border:1px solid rgba(255,255,255,0.08);
+    top:30px;
+    right:30px;
+    background:var(--card);
+    padding:0.75rem 1.75rem;
+    border-radius:16px;
+    box-shadow:0 10px 40px var(--shadow);
+    backdrop-filter:blur(20px);
+    border:1px solid var(--border);
     z-index:1000;
-    opacity:0;
-    transform:translateY(-20px);
-    animation:navIn 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s forwards;
 }
-@keyframes navIn{to{opacity:1;transform:translateY(0);}}
-.nav-link{
+nav a{
     color:var(--text-primary);
     text-decoration:none;
+    margin:0 1.25rem;
     font-weight:500;
-    font-size:1rem;
-    margin:0 20px;
-    position
+    font-size:0.95rem;
+    transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position:relative;
+}
+nav a:hover{color:var(--primary);}
+nav a::after{
+    content:'';
+    position:absolute;
+    width:0;
+    height:2px;
+    bottom:-4px;
+    left:0;
+    background:var(--primary);
+    transition:width 0.3s ease;
+}
+nav a:hover::after{width:100%;}
+section{padding:120px 40px;min-height:100vh;}
+section h2, section h3{font-weight:600;letter-spacing:-0.01em;}
+.container{max-width:1200px;margin:0 auto;}
+.timeline{position:relative;}
+.timeline::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:50%;
+    width:2px;
+    background:linear-gradient(to bottom, var(--primary), var(--secondary));
+    height:100%;
+    transform:translateX(-50%);
+}
+.event{
+    position:relative;
+    margin:50px 0;
+    width:50%;
+    opacity:0;
+    transform:translateY(30px);
+    animation:fadeInUp 0.8s ease-out forwards;
+}
+.event:nth-child(odd){left:0;padding-right:50px;}
+.event:nth-child(even){left:50%;padding-left:50px;}
+@keyframes fadeInUp{
+    to{opacity:1;transform:translateY(0);}
+}
+.event-content{
+    background:var(--card);
+    padding:2.5rem;
+    border-radius:20px;
+    box-shadow:0 20px 60px var(--shadow);
+    border:1px solid var(--border);
+    border-left:4px solid var(--primary);
+    transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position:relative;
+    overflow:hidden;
+}
+.event-content::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:4px;
+    background:linear-gradient(90deg, var(--primary), var(--secondary));
+}
+.event-content:hover{
+    transform:translateX(12px) translateY(-4px);
+    box-shadow:0 30px 80px var(--shadow);
+    border-color:var(--primary);
+}
+.project-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:2.5rem;}
+.project-card{
+    background:var(--card);
+    padding:3rem 2.5rem;
+    border-radius:20px;
+    text-align:left;
+    transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border:1px solid var(--border);
+    position:relative;
+    overflow:hidden;
+}
+.project-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:4px;
+    background:linear-gradient(90deg, var(--primary), var(--secondary));
+}
+.project-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 30px 60px var(--shadow);
+    border-color:var(--primary);
+}
+.project-card i{
+    font-size:3.5rem;
+    color:var(--primary);
+    margin-bottom:1.5rem;
+    display:block;
+}
+.project-card h3{
+    margin-bottom:1rem;
+    font-size:1.4rem;
+    font-weight:600;
+}
+.skills-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:2rem;
+    margin-top:2rem;
+}
+.skill-item{
+    background:var(--card);
+    padding:2.5rem 2rem;
+    border-radius:16px;
+    text-align:center;
+    border:1px solid var(--border);
+    transition:all 0.3s ease;
+    cursor:default;
+}
+.skill-item:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px var(--shadow);
+    border-color:var(--primary);
+}
+.skill-item i{font-size:3rem;margin-bottom:1rem;display:block;color:var(--primary);}
+.skill-item strong{display:block;font-size:1.1rem;margin-top:0.5rem;font-weight:600;}
+.languages-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:2.5rem;
+    max-width:700px;
+    margin:3rem auto 0;
+}
+.lang-item{text-align:center;}
+.lang-name{font-size:1.7rem;font-weight:600;margin-bottom:0.75rem;}
+.lang-level{color:var(--text-secondary);font-weight:500;font-size:1rem;}
+.profile-hero{text-align:center;margin-bottom:6rem;}
+.profile-img{
+    width:300px;
+    height:380px;
+    border-radius:20px;
+    box-shadow:0 30px 80px var(--shadow);
+    object-fit:cover;
+    margin:0 auto 2.5rem;
+    display:block;
+    border:3px solid var(--border);
+}
+.profile-card{
+    background:var(--card);
+    padding:4rem;
+    border-radius:24px;
+    max-width:1000px;
+    margin:0 auto 6rem;
+    box-shadow:0 30px 80px var(--shadow);
+    border:1px solid var(--border);
+}
+.profile-divider{
+    height:2px;
+    background:linear-gradient(90deg,transparent,rgba(74,144,226,0.4),transparent);
+    margin:3rem 0;
+    border:0;
+}
+.profile-card p{
+    font-size:1.15rem;
+    line-height:1.85;
+    margin-bottom:2rem;
+}
+@media (max-width:1024px){
+    .event{width:100% !important;left:0 !important;padding:0 20px !important;}
+    .timeline::before{left:40px;}
+}
+@media (max-width:768px){
+    section{padding:80px 20px;}
+    h1{font-size:2.8rem;}
+    .profile-card{padding:2.5rem 2rem;}
+    nav{right:20px;top:20px;padding:0.75rem 1.25rem;}
+    nav a{margin:0 0.75rem;font-size:0.9rem;}
+    .project-grid{gap:2rem;}
+}
+.contact-section{
+    background:linear-gradient(135deg, var(--card) 0%, #1e293b 100%);
+    text-align:center;
+}
+.contact-links{
+    font-size:1.2rem;
+    margin-top:2rem;
+}
+.contact-links a{
+    color:var(--secondary);
+    font-weight:500;
+    margin:0 1.5rem;
+    transition:all 0.3s ease;
+}
+.contact-links a:hover{color:var(--primary);transform:translateY(-1px);}
+footer{
+    text-align:center;
+    padding:3rem 2rem;
+    background:var(--card);
+    border-top:1px solid var(--border);
+    color:var(--text-secondary);
+    font-size:0.95rem;
+}
+</style>
+</head>
+<body>
+<div class="hero">
+<div>
+<h1>Marco Puliti</h1>
+<p>Robotics Hardware Engineer</p>
+</div>
+</div>
+
+<nav>
+<a href="#timeline"><i class="fas fa-user" style="margin-right:0.5rem;"></i>About</a>
+<a href="#projects"><i class="fas fa-project-diagram" style="margin-right:0.5rem;"></i>Projects</a>
+<a href="#skills"><i class="fas fa-file-alt" style="margin-right:0.5rem;"></i>Publications</a>
+<a href="#contact"><i class="fas fa-envelope" style="margin-right:0.5rem;"></i>Contacts</a>
+</nav>
+
+<section id="timeline">
+    <div class="container">
+        <div class="profile-hero">
+            <img src="MarcoPuliti.jpg" alt="Marco Puliti - Profile" class="profile-img">
+            <h2 style="font-size:3.2rem;margin-bottom:1rem;color:var(--primary);">Passionate about designing things to help people.</h2>
+        </div>
+        
+        <div class="profile-card">
+            <p>Hi, my name is Marco. Thank you for visiting my website.</p>
+            
+            <hr class="profile-divider">
+            
+            <p>I'm a <strong>mechatronics engineer</strong> with a PhD in mechanical engineering, specializing in <strong>robotics</strong>. 
+            I enjoy designing mechatronic systems that make a real impact on people's lives—whether prosthetics, exoskeletons, or robots in general.</p>
+            
+            <hr class="profile-divider">
+            
+            <p>When I'm not working, I enjoy outdoor endurance activities. I've completed several triathlons and one Ironman 70.3. 
+            My next targets are completing at least two marathons and another Ironman 70.3 by the end of 2026.</p>
+            
+            <hr class="profile-divider">
+            
+            <p>These endurance challenges remind me that we often limit ourselves by what our mind believes is possible. 
+            In reality, we're capable of far more, and many limitations simply don't exist. 
+            This mindset helps me thrive in every aspect of life—especially in the constantly evolving field of robotics.</p>
+        </div>
+
+        <div class="timeline">
+            <h3 style="font-size:2.2rem;margin:0 0 3rem 0;color:var(--primary);">Work Experience</h3>
+            <div class="event">
+                <div class="event-content">
+                    <h3><i class="fas fa-rocket" style="margin-right:0.75rem;color:var(--primary);"></i>Leonardo Spa - Innovation Hub (Robotics laboratory)</h3>
+                    <p>R&D Robotics Hardware engineer - Technical coordinator for mechatronics.</p>
+                </div>
+            </div>
+            <div class="event">
+                <div class="event-content">
+                    <h3><i class="fas fa-industry" style="margin-right:0.75rem;color:var(--primary);"></i>Istituto Italiano di Tecnologia (IIT) - Rehab Technologies Lab</h3>
+                    <p>Postdoctoral researcher in robotic prostheses and exoskeletons.</p>
+                </div>
+            </div>
+
+            <h3 style="font-size:2.2rem;margin:60px 0 3rem 0;color:var(--primary);">Education</h3>
+            <div class="event">
+                <div class="event-content">
+                    <h3><i class="fas fa-graduation-cap" style="margin-right:0.75rem;color:var(--primary);"></i>Mechanical engineering doctorate (robotics)</h3>
+                    <p>Istituto Italiano di Tecnologia (IIT) - Rehab Technologies Lab | Politecnico di Torino</p>
+                </div>
+            </div>
+            <div class="event">
+                <div class="event-content">
+                    <h3><i class="fas fa-book" style="margin-right:0.75rem;color:var(--primary);"></i>Master's degree in Mechatronics engineering</h3>
+                    <p>Politecnico di Torino - University of Massachusetts Lowell</p>
+                </div>
+            </div>
+        </div>
+        
+        <h3 style="text-align:center;font-size:2.2rem;margin:80px 0 4rem;color:var(--primary);">Skills</h3>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <i class="fab fa-python"></i>
+                <strong>Python/ROS2</strong>
+            </div>
+            <div class="skill-item">
+                <i class="fas fa-drafting-compass"></i>
+                <strong>SolidWorks</strong>
+            </div>
+            <div class="skill-item">
+                <i class="fas fa-microchip"></i>
+                <strong>KiCAD</strong>
+            </div>
+            <div class="skill-item">
+                <i class="fas fa-bolt"></i>
+                <strong>FOC Control</strong>
+            </div>
+        </div>
+
+        <h3 style="text-align:center;font-size:2.2rem;margin:80px 0 4rem;color:var(--primary);">Languages</h3>
+        <div class="languages-grid">
+            <div class="lang-item">
+                <div class="lang-name">Italian</div>
+                <div class="lang-level">Native</div>
+            </div>
+            <div class="lang-item">
+                <div class="lang-name">English</div>
+                <div class="lang-level">Fluent</div>
+            </div>
+            <div class="lang-item">
+                <div class="lang-name">Spanish</div>
+                <div class="lang-level">Intermediate</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="container" style="padding:140px 40px;">
+<h2 style="text-align:center;font-size:3.5rem;margin-bottom:5rem;">Projects</h2>
+<div class="project-grid">
+<div class="project-card">
+<i class="fas fa-cog"></i>
+<h3>Leg prosthesis</h3>
+<p>Add info</p>
+</div>
+<div class="project-card">
+<i class="fas fa-plug"></i>
+<h3>master thesis</h3>
+<p>add info</p>
+</div>
+<div class="project-card">
+<i class="fas fa-running"></i>
+<h3>robot leg</h3>
+<p>add info</p>
+</div>
+</div>
+</section>
+
+<section id="skills" class="container" style="padding:140px 40px;text-align:center;">
+<h2 style="font-size:3.5rem;margin-bottom:5rem;">Publications</h2>
+<!-- Add publications content here -->
+</section>
+
+<section id="contact" class="contact-section container" style="padding:140px 40px;">
+<h2 style="text-align:center;font-size:3rem;margin-bottom:3rem;">Contacts</h2>
+<p style="text-align:center;font-size:1.3rem;color:var(--text-secondary);margin-bottom:2rem;">Genoa, IT</p>
+<div class="contact-links">
+<a href="mailto:marcopuliti11@gmail.com"><i class="fas fa-envelope" style="margin-right:0.5rem;"></i>marcopuliti11@gmail.com</a>
+<a href="https://www.linkedin.com/in/marco-puliti-1a4792140/"><i class="fab fa-linkedin" style="margin-right:0.5rem;"></i>LinkedIn</a>
+<a href="https://github.com/marcopuliti11"><i class="fab fa-github" style="margin-right:0.5rem;"></i>GitHub</a>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<p>Powered by GitHub Pages & my friend Perplexity AI <i class="fas fa-robot" style="color:var(--secondary);font-size:1.1em;"></i></p>
+</div>
+</footer>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e){
+        e.preventDefault(); 
+        const target = document.querySelector(this.getAttribute('href'));
+        target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+});
+
+// Stagger timeline animations
+document.addEventListener('DOMContentLoaded', () => {
+    const events = document.querySelectorAll('.event');
+    events.forEach((event, index) => {
+        event.style.animationDelay = `${index * 0.1}s`;
+    });
+});
+</script>

@@ -59,6 +59,9 @@ body{
     backdrop-filter: blur(20px);
     border: 1px solid var(--border);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: fit-content;     /* Shrink-wraps to text */
+    max-width: 280px;       /* Max limit for longer names */
+    position: relative;
     position: relative;
 }
 .name-header::after {
